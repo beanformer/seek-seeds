@@ -92,26 +92,49 @@ disable_authorization_checks do
 
 
 ###############################################################################
+  # ISA Investigation
+###############################################################################
+
+unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.5 for object type Study', supported_type:'Investigation').any?
+  emt = ExtendedMetadataType.new(title: 'MIMCT Metadata V0.5 for object type Study', supported_type: 'Investigation')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_acronym',      required: false, sample_attribute_type: string_type, description: 'Short abbreviation referencing the study', label: 'Study Acronym')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_identifier',   required: false, sample_attribute_type: string_type, description: 'Identifier from a clinical trial registry', label: 'Study Identifier')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_start_date',   required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study Start Date')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_end_date',     required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study End Date')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_homepage',     required: false, sample_attribute_type: link_type, description: 'Specific website for study content', label: 'Study Homepage')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_pi',           required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Principle Investigator')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sponsor',      required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Sponsor')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_type',         required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_type_cv, description: '', label: 'Study Type')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: SampleAttributeType.where(title:'Linked Extended Metadata').first, linked_extended_metadata_type: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study Status')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
+  emt.save!
+  puts 'MIMCT Metadata V0.5 for object type Investigation'
+end
+
+###############################################################################
   # ISA Study
 ###############################################################################
 
-  unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.5 for object type Study', supported_type:'Investigation').any?
-    emt = ExtendedMetadataType.new(title: 'MIMCT Metadata V0.5 for object type Study', supported_type: 'Study')
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_acronym',      required: false, sample_attribute_type: string_type, description: 'Short abbreviation referencing the study', label: 'Study Acronym'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_identifier',   required: false, sample_attribute_type: string_type, description: 'Identifier from a clinical trial registry', label: 'Study Identifier'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_start_date',   required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study Start Date'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_end_date',     required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study End Date'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_homepage',     required: false, sample_attribute_type: link_type, description: 'Specific website for study content', label: 'Study Homepage'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_pi',           required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Principle Investigator'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sponsor',      required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Sponsor'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_type',         required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_type_cv, description: '', label: 'Study Type'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: SampleAttributeType.where(title:'Linked Extended Metadata').first, linked_extended_metadata_type: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study Status'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites'),
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
-    emt.save!
-    puts 'MIMCT Metadata V0.5 for object type Study'
-  end
+unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.5 for object type Study', supported_type:'Study').any?
+  emt = ExtendedMetadataType.new(title: 'MIMCT Metadata V0.5 for object type Study', supported_type: 'Study')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_acronym',      required: false, sample_attribute_type: string_type, description: 'Short abbreviation referencing the study', label: 'Study Acronym')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_identifier',   required: false, sample_attribute_type: string_type, description: 'Identifier from a clinical trial registry', label: 'Study Identifier')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_start_date',   required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study Start Date')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_end_date',     required: false, sample_attribute_type: date_type, description: 'Actual or planned, if applicable', label: 'Study End Date')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_homepage',     required: false, sample_attribute_type: link_type, description: 'Specific website for study content', label: 'Study Homepage')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_pi',           required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Principle Investigator')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sponsor',      required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Sponsor')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_type',         required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_type_cv, description: '', label: 'Study Type')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: SampleAttributeType.where(title:'Linked Extended Metadata').first, linked_extended_metadata_type: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study Status')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
+  emt.save!
+  puts 'MIMCT Metadata V0.5 for object type Study'
+end
 
 end
