@@ -1,4 +1,4 @@
-puts 'Seeded Clinical Trials Metadata (MIMCT) V0.5'
+puts 'Seeded Clinical Trials Extended Metadata (MIMCT) V0.5'
 
 ###############################################################################
 # Initialisation of aliases for common sample attributes types, for easier use
