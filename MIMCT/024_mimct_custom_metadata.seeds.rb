@@ -74,15 +74,15 @@ disable_authorization_checks do
 # Definition of the extended metadata types
 # (helpers used later for nesting in extendeded metadata schemas)
 ###############################################################################
-
   unless ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').any?
     emt = ExtendedMetadataType.new(title: 'study_condition', supported_type:'ExtendedMetadata')
-    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'ICD-10 code', sample_attribute_type: SampleAttributeType.where(title:'String').first, label: 'ICD-10 code')
+    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'ICD-10 code', sample_attribute_type: string_type, label: 'ICD-10 code')
+    emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'first_name', sample_attribute_type: string_type, label: "first name", description: "First name of the role")
     emt.save!
   end
 
 ###############################################################################
-# Definition of the Custom Metadata types
+# Definition of the Custom Metadata types OBSOLETE!!!
 # (helper used later in constructing the extended metadata schema)
 ###############################################################################
 
@@ -108,7 +108,7 @@ unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.6 for object type Stu
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_pi',           required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Principle Investigator')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sponsor',      required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Sponsor')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_type',         required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_type_cv, description: '', label: 'Study type')
-  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: SampleAttributeType.where(title:'Linked Extended Metadata').first, linked_extended_metadata_type_list: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: linked_extended_metadata_type_list, linked_extended_metadata_type: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')                                                                 
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study status')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of study sites')
@@ -131,7 +131,7 @@ unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.6 for object type Stu
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_pi',           required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Principle Investigator')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sponsor',      required: false, sample_attribute_type: string_type, description: 'Please enter only one name', label: 'Sponsor')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_type',         required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_type_cv, description: '', label: 'Study Type')
-  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: SampleAttributeType.where(title:'Linked Extended Metadata').first, linked_extended_metadata_type_list: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')
+  emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_condition',    required: false, sample_attribute_type: linked_extended_metadata_type_list, linked_extended_metadata_type: ExtendedMetadataType.where(title:'study_condition', supported_type:'ExtendedMetadata').first, description: '', label: 'Health conditions studied')                                                                 
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study Status')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites')
