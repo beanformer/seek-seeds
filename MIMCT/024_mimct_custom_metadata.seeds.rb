@@ -110,7 +110,7 @@ disable_authorization_checks do
       create_custom_metadata_attribute(title: 'study_sample_size',  required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of subjects enrolled'),
       create_custom_metadata_attribute(title: 'study_status',       required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_status_cv, description: '', label: 'Study Status'),
       create_custom_metadata_attribute(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites'),
-      create_custom_metadata_attribute(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with subjects consent', label: 'Data Management Plan for data sharing?')
+      create_custom_metadata_attribute(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
     ]
   )
 
