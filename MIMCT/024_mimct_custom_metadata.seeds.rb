@@ -25,6 +25,9 @@ float_type.update(base_type: Seek::Samples::BaseType::FLOAT, placeholder: '0.5')
 boolean_type = SampleAttributeType.find_or_initialize_by(title: 'Boolean')
 boolean_type.update(base_type: Seek::Samples::BaseType::BOOLEAN)
 
+link_type = SampleAttributeType.find_or_initialize_by(title:'Web link')
+link_type.update(base_type: Seek::Samples::BaseType::STRING, regexp: URI.regexp(%w(http https)).to_s, placeholder: 'http://www.example.com', resolution:'\\0')
+
 cv_type = SampleAttributeType.find_or_initialize_by(title: 'Controlled Vocabulary')
 cv_type.update(base_type: Seek::Samples::BaseType::CV)
 
