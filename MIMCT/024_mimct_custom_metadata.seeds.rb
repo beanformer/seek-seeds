@@ -111,7 +111,7 @@ unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.5 for object type Stu
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
   emt.save!
-  puts 'MIMCT Metadata V0.5 for object type Investigation'
+  puts 'MIMCT Metadata V0.5 for SEEK type Investigation'
 end
 
 ###############################################################################
@@ -134,7 +134,7 @@ unless ExtendedMetadataType.where(title:'MIMCT Metadata V0.5 for object type Stu
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_sites_number', required: false, sample_attribute_type: int_type, description: 'Actual value for completed studies, planned for active studies', label: 'Number of sites')
   emt.extended_metadata_attributes << ExtendedMetadataAttribute.new(title: 'study_dmp',          required: false, sample_attribute_type: cv_type, sample_controlled_vocab: study_dmp_cv, description: 'Plan for data sharing in compliance with consent of subject', label: 'Data Management Plan for data sharing?')
   emt.save!
-  puts 'MIMCT Metadata V0.5 for object type Study'
+  puts 'MIMCT Metadata V0.5 for SEEK type Study'
 end
 
 end
